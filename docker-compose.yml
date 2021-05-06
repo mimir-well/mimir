@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  frontend:
+    container_name: mimir_frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3001:3000
+    #   - 9229:9229
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    # command: ["node", "--inspect=0.0.0.0:9229", "index.js"]
+  backend:
+    container_name: mimir_backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./backend/src:/app
+    ports:
+      - 8000:8000
+    environment: 
+      - MONGODB_URL=mongodb://mimir_mongo:27017
+  mongodb:
+    image : mimir_mongo
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ~/.mongodb/db:/data/db
+    ports:
+      - 27018:27017
+    restart: unless-stopped

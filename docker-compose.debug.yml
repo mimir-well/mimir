@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  frontend:
+    container_name: mimir_frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - /app/node_modules
+    ports:
+      - 3001:3000
+      # - 9229:9229
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    # command: ["node", "--inspect=0.0.0.0:9229", "index.js"]
+  backend:
+    container_name: mimir_backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./backend/app:/app
+    ports:
+      - 8000:8000
+      - 5678:5678
+    environment: 
+      - MONGODB_URL=mongodb://mimir_mongodb:27017
+    # command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload"]
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:5678 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload"]
+  mongodb:
+    image : mongo
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ~/.mongodb/db:/data/db
+    ports:
+      - 27018:27017
+    restart: unless-stopped
