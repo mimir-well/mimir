@@ -1,3 +1,4 @@
+**/__pycache__
 **/.classpath
 **/.dockerignore
 **/.env
@@ -12,6 +13,7 @@
 **/*.dbmdl
 **/*.jfm
 **/azds.yaml
+**/bin
 **/charts
 **/docker-compose*
 **/compose*
