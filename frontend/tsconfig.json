@@ -21,6 +21,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "node_modules/**/@types",
+    "@types",
+  ],
+  "exclude": [
+    "src/tsconfig.json",
   ]
 }
