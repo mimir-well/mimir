@@ -8,7 +8,7 @@ settings = Settings()
 
 
 @app.get("/")
-async def meduza_parse_rss():
+async def main():
     data = {
         "env_var": settings.mongodb_url,
         "add": 1,
