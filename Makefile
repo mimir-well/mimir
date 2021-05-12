@@ -1,3 +1,12 @@
+up:
+	docker-compose up -d
+
+down:
+	docker-compose down
+
+rebuild:
+	docker-compose up -d --build
+	
 debug-up:
 	docker-compose -f docker-compose.debug.yml up -d
 

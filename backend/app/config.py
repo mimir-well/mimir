@@ -6,4 +6,4 @@ class Settings(BaseSettings):
     env_var: str = "dev"
 
     class Config:
-        env_file = ".env"
+        env_file = "../env"
