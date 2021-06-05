@@ -2,8 +2,8 @@
 
 > **Mimir** inspired by [The Odin Project](https://www.theodinproject.com/).
 
-The goal of this app is to give community place to create curriculums and
-courses based on fre and open articles, videos and other resources.
+The goal of this app is to give place for community to create curriculums and
+courses based on free and public articles, videos and other resources.
 
 ## Install (local)
 
