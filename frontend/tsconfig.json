@@ -24,9 +24,9 @@
   "include": [
     "src",
     "node_modules/**/@types",
-    "@types",
+    "@types"
   ],
   "exclude": [
-    "src/tsconfig.json",
+    "src/tsconfig.json"
   ]
 }
