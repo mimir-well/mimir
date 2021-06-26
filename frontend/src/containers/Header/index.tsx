@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/layout";
 import React from "react";
-import { IconButton, useColorMode } from "@chakra-ui/react";
+import { IconButton, useColorMode, Link } from "@chakra-ui/react";
 import { MoonIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const Header: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
       zIndex="100"
     >
       <Flex fontSize="xl" fontWeight="extrabold">
-        <Link to="/">Mimir</Link>
+        <Link as={RouterLink} to="/" fontSize="larger" style={{ textDecoration: 'none'}}>ᛗᛁᛗᛁᚱ</Link>
       </Flex>
       <IconButton
         aria-label="Switch to darkmode"
