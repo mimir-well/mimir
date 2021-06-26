@@ -1,13 +1,16 @@
-FROM node:15.5-alpine3.12
+FROM node:14.7-alpine
 
-WORKDIR /app
+USER node
+
+WORKDIR /home/node
 
 COPY package.json package-lock.json ./
+# RUN npm config set unsafe-perm true
 RUN npm install --silent
 
 COPY . .
 
 EXPOSE 3000
 
-ENV PATH /app/node_modules/.bin:$PATH
+# ENV PATH /app/node_modules/.bin:$PATH
 CMD ["npm", "start"]

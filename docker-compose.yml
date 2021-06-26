@@ -7,12 +7,8 @@ services:
       context: frontend
       dockerfile: ./Dockerfile
     volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-      - ./frontend/package-lock.json:/app/package-lock.json
-      - ./frontend/package.json:/app/package.json
-      - ./frontend/tsconfig.json:/app/tsconfig.json
-      - ./frontend/@types:/app/@types
+      - ./frontend/:/app/
+      - /app/node_modules
     ports:
       - 3001:3000
     environment:
