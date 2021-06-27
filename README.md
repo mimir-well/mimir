@@ -9,7 +9,7 @@ courses based on free and public articles, videos and other resources.
 
 ### Backend
 
-- Install Python 3.9 (or above)
+- Install Python 3.8 (recomended)
   - From [website](https://www.python.org/downloads/)
   - From [pyenv](https://realpython.com/intro-to-pyenv/) (recomended)
 - Create and activate virtual envoirenment in `./backend`
@@ -33,7 +33,7 @@ courses based on free and public articles, videos and other resources.
 ### Frontend
 
 - Install Node.js
-  - Recomended version - 15.5
+  - Recomended version - 14.8 LTS
   - From [website](https://nodejs.org/en/)
   - From [nvm](https://github.com/nvm-sh/nvm) (recomended)
 - Install dependencies
