@@ -1,16 +1,16 @@
 
 import React from "react";
+import { useState } from "react";
 import { Container, Flex } from "@chakra-ui/react";
 import { Collapse, Button, Heading } from "@chakra-ui/react";
 
 
 const CoursePage: React.FC = () => {
-	const [show, setShow] = React.useState(false)
+	const [show, setShow] = useState(false)
 
 	const handleToggle = () => setShow(!show)
 
 	return (
-		<>
 		<Container mt={8}>
 			<Heading as="h2" size="xl">Course name</Heading>
 			<Flex
@@ -36,7 +36,6 @@ const CoursePage: React.FC = () => {
 				</Button>
 			</Flex>
 		</Container>
-		</>
 	)
 }
 
