@@ -134,6 +134,7 @@ dmypy.json
 **/node_modules
 **/.pnp
 .pnp.js
+frontend/.config
 
 # testing
 **/coverage
