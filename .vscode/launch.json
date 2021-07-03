@@ -1,6 +1,24 @@
 {
     "configurations": [
         {
+            "name": "Python: FastAPI",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "cwd": "${workspaceFolder}/backend/app",
+            "args": [
+                "main:app"
+            ],
+            "jinja": true
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python: Remote Attach",
             "type": "python",
             "request": "attach",

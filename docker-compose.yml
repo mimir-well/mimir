@@ -22,7 +22,7 @@ services:
     volumes:
       - ./backend/app:/app
     ports:
-      - 8000:8000
+      - 8000:80
     environment:
       - MONGODB_URL=mongodb://mimir_mongodb:27017
     restart: unless-stopped
