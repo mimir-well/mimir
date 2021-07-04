@@ -11,19 +11,18 @@ const Header: React.FC = () => {
     <Flex
       as="header"
       w="100%"
-      h="50px"
       px={10}
       py={4}
-      pos="sticky"
-      top="0"
+      pos="fixed"
+      top={0}
       alignItems="center"
       justifyContent="space-between"
       // TODO: move bgColor to global style
       bgColor={colorMode === "dark" ? "gray.800" : "white"}
       shadow="base"
-      zIndex="100"
+      zIndex={2}
     >
-      <Flex fontSize="xl" fontWeight="extrabold">
+      <Flex fontSize="xl">
         <Link as={RouterLink} to="/" fontSize="larger" style={{ textDecoration: 'none'}}>ᛗᛁᛗᛁᚱ</Link>
       </Flex>
       <IconButton

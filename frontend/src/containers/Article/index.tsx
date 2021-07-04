@@ -10,7 +10,7 @@ const Article: React.FC = () => {
     <Flex
       w={"100%"}
       justifyContent={"center"}
-      mt={5}
+      mt={24}
       px={{ base: 0, md: 5, xl: 10 }}
       sx={{
         "& > div": {
