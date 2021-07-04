@@ -18,7 +18,6 @@ const CoursePage: React.FC = () => {
                     p={8}
                     cursor="pointer"
                     flexBasis="608px"
-                    boxSizing="border-box"
                     border="1px solid rgba(0, 0, 0, 0.14)"
                     borderRadius="8px"
                     justifyContent="space-between"
