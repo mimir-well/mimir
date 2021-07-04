@@ -1,0 +1,178 @@
+// Select the database to use.
+use('mimir');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.user.drop();
+db.curriculum.drop();
+db.course.drop();
+db.article.drop();
+
+const _schema_version = "1.0"
+
+// Add users
+const users = db.user.insertMany([
+  {'_schema': _schema_version, 'name': 'Vlad', 'email': 'vlad@mimir.app'},
+  {'_schema': _schema_version, 'name': 'Iliya', 'email': 'iliya@mimir.app'},
+]).insertedIds
+
+const vlad_id = users[0]
+const iliya_id = users[1]
+
+// Add curriculums
+const curriculums_ids = db.curriculum.insertMany([
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'name': 'Data Science 101 curriculum', 'slug': 'data-science-101-curriculum'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'name': 'Frontend developer curriculum', 'slug': 'frontend-developer-curriculum'},
+]).insertedIds
+
+// Add courses
+const courses_ids = db.course.insertMany([
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'name': 'Math course', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'name': 'Python course', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'name': 'Machine learning course', 'slug': 'machine-learning-course'},
+  
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'name': 'HTML course', 'slug': 'html-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'name': 'CSS course', 'slug': 'css-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'name': 'JS course', 'slug': 'js-course'},
+]).insertedIds
+
+const math_course = courses_ids[0]
+const python_course = courses_ids[1]
+const ml_course = courses_ids[2]
+const html_course = courses_ids[3]
+const css_course = courses_ids[4]
+const js_course = courses_ids[5]
+
+// Append courses to curriculums
+db.curriculum.updateOne(
+  {'_id': curriculums_ids[0]},
+  { $push: {
+    content: [
+      {'$ref': 'course', '$id': math_course},
+      {'$ref': 'course', '$id': python_course},
+      {'$ref': 'course', '$id': ml_course},
+    ]
+  }}
+)
+
+db.curriculum.updateOne(
+  {'_id': curriculums_ids[1]},
+  { $push: {
+    content: [
+      {'$ref': 'course', '$id': html_course},
+      {'$ref': 'course', '$id': css_course},
+      {'$ref': 'course', '$id': js_course},
+    ]
+  }}
+)
+
+// Add articles
+const articles_ids = db.article.insertMany([
+  // MATH
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Linear algebra', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Calculus', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Statistics', 'slug': 'python-course'},
+
+  // PYTHON
+  // Basics python section
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Variables', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Strings', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Lists', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Functions', 'slug': 'python-course'},
+
+  // oop section
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Classes', 'slug': 'python-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Patterns', 'slug': 'python-course'},
+
+  // ML
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Basic Machine learning', 'slug': 'machine-learning-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Deep learning', 'slug': 'machine-learning-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Computer vision', 'slug': 'machine-learning-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": vlad_id}, 'is_draft': false, 'name': 'Natural language processing', 'slug': 'machine-learning-course'},
+  
+  // --------------------------------------------------------------------------
+  // HTML
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'Tags', 'slug': 'html-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'Attributes', 'slug': 'html-course'},
+
+  // CSS
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'CSS basics', 'slug': 'css-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'CSS selectors', 'slug': 'css-course'},
+
+  // JS
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'JS Basics', 'slug': 'js-course'},
+  {'_schema': _schema_version, 'owner_id': {"$ref": "user", "$id": iliya_id}, 'is_draft': false, 'name': 'Async / await', 'slug': 'js-course'},
+]).insertedIds
+
+// Append articles to courses
+db.course.updateOne(
+  {'_id': math_course},
+  { $push: {
+    content: [
+      {'$ref': 'article', '$id': articles_ids[0]},
+      {'$ref': 'article', '$id': articles_ids[1]},
+      {'$ref': 'article', '$id': articles_ids[2]},
+    ]
+  }}
+)
+
+db.course.updateOne(
+  {'_id': python_course},
+  { $push: {
+    content: [
+      {'_schema': _schema_version, 'name': 'Basics of Python', 'content': [
+        {'$ref': 'article', '$id': articles_ids[3]},
+        {'$ref': 'article', '$id': articles_ids[4]},
+        {'$ref': 'article', '$id': articles_ids[5]},
+        {'$ref': 'article', '$id': articles_ids[6]},
+      ]},
+      {'_schema': _schema_version, 'name': 'Object-oriented programming', 'content': [
+        {'$ref': 'article', '$id': articles_ids[7]},
+        {'$ref': 'article', '$id': articles_ids[8]},
+      ]},
+    ]
+  }}
+)
+
+db.course.updateOne(
+  {'_id': ml_course},
+  { $push: {
+    content: [
+      {'$ref': 'article', '$id': articles_ids[9]},
+      {'$ref': 'article', '$id': articles_ids[10]},
+      {'$ref': 'article', '$id': articles_ids[11]},
+      {'$ref': 'article', '$id': articles_ids[12]},
+    ]
+  }}
+)
+
+db.course.updateOne(
+  {'_id': html_course},
+  { $push: {
+    content: [
+      {'$ref': 'article', '$id': articles_ids[13]},
+      {'$ref': 'article', '$id': articles_ids[14]},
+    ]
+  }}
+)
+
+db.course.updateOne(
+  {'_id': css_course},
+  { $push: {
+    content: [
+      {'$ref': 'article', '$id': articles_ids[15]},
+      {'$ref': 'article', '$id': articles_ids[16]},
+    ]
+  }}
+)
+
+db.course.updateOne(
+  {'_id': js_course},
+  { $push: {
+    content: [
+      {'$ref': 'article', '$id': articles_ids[17]},
+      {'$ref': 'article', '$id': articles_ids[18]},
+    ]
+  }}
+)
+
