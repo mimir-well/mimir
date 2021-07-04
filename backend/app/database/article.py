@@ -17,7 +17,10 @@ async def insert_article(owner_id: str,
                          **kwargs) -> Dict[str, Any]:
     document = {
         "_schema": __schema_version,
-        "owner_id": owner_id,
+        "owner_id": {
+            "$ref": "user",
+            "$id": owner_id
+        },
         "name": name,
         "slug": slug,
         "is_draft": is_draft,
@@ -35,4 +38,5 @@ async def get_article(article_id: Union[str, ObjectId], *args, **kwargs) -> Dict
     article = await article_collection.find_one({"_id": article_id})
     if article:
         article['_id'] = str(article['_id'])
+        article['owner_id'] = str(article['owner_id'].id)
     return article
