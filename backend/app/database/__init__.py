@@ -12,3 +12,6 @@ user_collection = db.get_collection('user')
 curriculum_collection = db.get_collection('curriculum')
 course_collection = db.get_collection('course')
 article_collection = db.get_collection('article')
+
+
+_schema_version = "1.0"

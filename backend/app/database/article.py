@@ -2,10 +2,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from bson.objectid import ObjectId
 
-from database import (article_collection, course_collection,
-                      curriculum_collection, user_collection)
-
-__schema_version = "1.0"
+from database import _schema_version, article_collection
 
 
 async def insert_article(owner_id: str,
@@ -16,7 +13,7 @@ async def insert_article(owner_id: str,
                          *args,
                          **kwargs) -> Dict[str, Any]:
     document = {
-        "_schema": __schema_version,
+        "_schema": _schema_version,
         "owner_id": {
             "$ref": "user",
             "$id": owner_id
