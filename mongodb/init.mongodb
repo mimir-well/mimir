@@ -8,7 +8,7 @@ db.curriculum.drop();
 db.course.drop();
 db.article.drop();
 
-const _schema_version = "1.0"
+const _schema_version = "1.0";
 
 // Add users
 const users = db.user.insertMany([
@@ -47,22 +47,22 @@ const js_course = courses_ids[5]
 db.curriculum.updateOne(
   {'_id': curriculums_ids[0]},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'course', '$id': math_course},
       {'$ref': 'course', '$id': python_course},
       {'$ref': 'course', '$id': ml_course},
-    ]
+    ]}
   }}
 )
 
 db.curriculum.updateOne(
   {'_id': curriculums_ids[1]},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'course', '$id': html_course},
       {'$ref': 'course', '$id': css_course},
       {'$ref': 'course', '$id': js_course},
-    ]
+    ]}
   }}
 )
 
@@ -108,71 +108,71 @@ const articles_ids = db.article.insertMany([
 db.course.updateOne(
   {'_id': math_course},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'article', '$id': articles_ids[0]},
       {'$ref': 'article', '$id': articles_ids[1]},
       {'$ref': 'article', '$id': articles_ids[2]},
-    ]
+    ]}
   }}
 )
 
 db.course.updateOne(
   {'_id': python_course},
   { $push: {
-    content: [
-      {'_schema': _schema_version, 'name': 'Basics of Python', 'content': [
+    content: { $each: [
+      {'section_name': 'Basics of Python', 'content': [
         {'$ref': 'article', '$id': articles_ids[3]},
         {'$ref': 'article', '$id': articles_ids[4]},
         {'$ref': 'article', '$id': articles_ids[5]},
         {'$ref': 'article', '$id': articles_ids[6]},
       ]},
-      {'_schema': _schema_version, 'name': 'Object-oriented programming', 'content': [
+      {'section_name': 'Object-oriented programming', 'content': [
         {'$ref': 'article', '$id': articles_ids[7]},
         {'$ref': 'article', '$id': articles_ids[8]},
       ]},
-    ]
+    ]}
   }}
 )
 
 db.course.updateOne(
   {'_id': ml_course},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'article', '$id': articles_ids[9]},
       {'$ref': 'article', '$id': articles_ids[10]},
       {'$ref': 'article', '$id': articles_ids[11]},
       {'$ref': 'article', '$id': articles_ids[12]},
-    ]
+    ]}
   }}
 )
 
 db.course.updateOne(
   {'_id': html_course},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'article', '$id': articles_ids[13]},
       {'$ref': 'article', '$id': articles_ids[14]},
-    ]
+    ]}
   }}
 )
 
 db.course.updateOne(
   {'_id': css_course},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'article', '$id': articles_ids[15]},
       {'$ref': 'article', '$id': articles_ids[16]},
-    ]
+    ]}
   }}
 )
 
 db.course.updateOne(
   {'_id': js_course},
   { $push: {
-    content: [
+    content: { $each: [
       {'$ref': 'article', '$id': articles_ids[17]},
       {'$ref': 'article', '$id': articles_ids[18]},
-    ]
+    ]}
   }}
 )
 
